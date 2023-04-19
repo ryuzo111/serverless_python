@@ -1,42 +1,38 @@
 import json
-
+import boto3
+from datetime import datetime
 # import requests
 
 
 def lambda_handler(event, context):
-    """Sample pure Lambda function
 
-    Parameters
-    ----------
-    event: dict, required
-        API Gateway Lambda Proxy Input Format
 
-        Event doc: https://docs.aws.amazon.com/apigateway/latest/developerguide/set-up-lambda-proxy-integrations.html#api-gateway-simple-proxy-for-lambda-input-format
+    # DynamoDBクライアントを作成する
+    # dynamodb = boto3.resource('dynamodb', endpoint_url='http://localhost:8000')
+    dynamodb = boto3.resource('dynamodb', endpoint_url='http://192.168.11.5:8000')
+    table_name = 'Users'
+    print("ここに来ている")
+    table = dynamodb.Table(table_name)
+    print("ここに来ている")
 
-    context: object, required
-        Lambda Context runtime methods and attributes
+    # idとcreated_atを生成する
+    id = 'user001'
+    created_at = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 
-        Context doc: https://docs.aws.amazon.com/lambda/latest/dg/python-context-object.html
-
-    Returns
-    ------
-    API Gateway Lambda Proxy Output Format: dict
-
-        Return doc: https://docs.aws.amazon.com/apigateway/latest/developerguide/set-up-lambda-proxy-integrations.html
-    """
-
-    # try:
-    #     ip = requests.get("http://checkip.amazonaws.com/")
-    # except requests.RequestException as e:
-    #     # Send some context about this error to Lambda Logs
-    #     print(e)
-
-    #     raise e
+    print("ここに来ている")
+    # テーブルにデータをインサートする
+    item = {
+        'id': id,
+        'created_at': created_at
+    }
+    print("ここに来ている")
+    response = table.put_item(Item=item)
+    print("ここに来ている")
 
     return {
         "statusCode": 200,
         "body": json.dumps({
-            "message": "hello world",
+            "message": "hello python world",
             # "location": ip.text.replace("\n", "")
         }),
     }
