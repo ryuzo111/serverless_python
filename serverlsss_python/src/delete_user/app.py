@@ -11,7 +11,6 @@ def lambda_handler(event, context):
     # dynamodb = boto3.resource('dynamodb', endpoint_url='http://localhost:8000')
     dynamodb = boto3.resource('dynamodb', endpoint_url='http://192.168.11.5:8000')
     table_name = 'Users'
-    print("ここに来ている")
     table = dynamodb.Table(table_name)
     print("ここに来ている")
 
@@ -19,20 +18,14 @@ def lambda_handler(event, context):
     id = 'user001'
     created_at = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 
-    print("ここに来ている")
     # テーブルにデータをインサートする
     item = {
         'id': id,
         'created_at': created_at
     }
-    print("ここに来ている")
     response = table.put_item(Item=item)
-    print("ここに来ている")
 
     return {
         "statusCode": 200,
-        "body": json.dumps({
-            "message": "hello python world",
-            # "location": ip.text.replace("\n", "")
-        }),
+        "body" : response
     }
