@@ -14,7 +14,7 @@ def lambda_handler(event, context):
     table = dynamodb.Table(table_name)
     print("ここに来ている")
 
-    # idとcreated_atを生成する
+    # TODO オートインクリメント的なノリを作る
     id = 'user001'
     created_at = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 
@@ -28,8 +28,4 @@ def lambda_handler(event, context):
     return {
         "statusCode": 200,
         "body" : response
-        # "body": json.dumps({
-        #     "message": "hello python world",
-        #     # "location": ip.text.replace("\n", "")
-        # }),
     }

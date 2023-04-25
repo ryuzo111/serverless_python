@@ -12,7 +12,6 @@ def lambda_handler(event, context):
     dynamodb = boto3.resource('dynamodb', endpoint_url='http://192.168.11.5:8000')
     table_name = 'Users'
     table = dynamodb.Table(table_name)
-    print("ここに来ている")
 
     # idとcreated_atを生成する
     id = 'user001'
