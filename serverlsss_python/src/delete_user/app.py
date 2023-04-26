@@ -22,7 +22,8 @@ def lambda_handler(event, context):
         'id': id,
         'created_at': created_at
     }
-    response = table.put_item(Item=item)
+    response = table.putItem(Item=item)
+    response = table.delete(Key={'id': 'user001'})
 
     return {
         "statusCode": 200,
