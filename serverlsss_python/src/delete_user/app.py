@@ -18,11 +18,6 @@ def lambda_handler(event, context):
     created_at = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 
     # テーブルにデータをインサートする
-    item = {
-        'id': id,
-        'created_at': created_at
-    }
-    response = table.putItem(Item=item)
     response = table.delete(Key={'id': 'user001'})
 
     return {
